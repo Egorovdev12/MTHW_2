@@ -1,45 +1,46 @@
 package hw1;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class AutoShop {
-    public Seller seller;
-    public List<Auto> autoList;
 
-    public AutoShop() {
-        this.seller =  new Seller(this);
-        this.autoList = new LinkedList<>();
+    private ArrayList<Car> autoList = new ArrayList<>();
+    private final int SLEEP_TIME = 1000;
+
+    private class Car {
+
     }
 
-    public synchronized Auto sellAuto() {
-        try {
-            System.out.println("Магазин производит продажу товара: клиент: " + Thread.currentThread().getName());
-            while (autoList.size() == 0) {
-                System.out.println("На данный момент автомобилей в продаже нет. необходимо ожидать поставки");
+    public synchronized Car sellCar() {
+        while (autoList.isEmpty()) {
+            try {
+                System.out.println("Клиент:" + Thread.currentThread().getName() + " ожидает поставки");
                 wait();
             }
-            Thread.sleep(1000);
-            System.out.println(Thread.currentThread().getName() + " получил свой автомобиль");
-        }
-        catch (java.lang.InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        return autoList.remove(0);
-    }
-
-    public synchronized void getNewAuto() {
-        try {
-            for (int i = 0; i < 3; i++) {
-                System.out.println("Магазин получает новый автомобиль на продажу");
-                Thread.sleep(2000);
-                this.autoList.add(new Auto());
-                System.out.println("В магазин поступил новый автомобиль. Количетсво автомобилей в продаже: " + autoList.size());
-                notify();
+            catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
+        }
+        try {
+            Thread.sleep(SLEEP_TIME);
         }
         catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+        System.out.println(Thread.currentThread().getName() + " получает свой новенький автомобиль");
+        return autoList.remove(0);
+    }
+
+    public synchronized void putNewCar() {
+        autoList.add(new Car());
+        System.out.println("В автосалон поступает новый автомобиль");
+        try {
+            Thread.sleep(SLEEP_TIME);
+        }
+        catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Новый автомобиль доступен в продаже");
+        notify();
     }
 }
