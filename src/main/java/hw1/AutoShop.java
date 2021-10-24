@@ -36,6 +36,6 @@ public class AutoShop {
             ex.printStackTrace();
         }
         System.out.println("Новый автомобиль доступен в продаже");
-        notifyAll();
+        notify();
     }
 }
