@@ -16,18 +16,13 @@ public class AutoShop {
             try {
                 System.out.println("Клиент:" + Thread.currentThread().getName() + " ожидает поставки");
                 wait();
+                Thread.sleep(SLEEP_TIME);
+                System.out.println(Thread.currentThread().getName() + " получает свой новенький автомобиль");
             }
             catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
         }
-        try {
-            Thread.sleep(SLEEP_TIME);
-        }
-        catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        System.out.println(Thread.currentThread().getName() + " получает свой новенький автомобиль");
         return autoList.remove(0);
     }
 
@@ -41,6 +36,6 @@ public class AutoShop {
             ex.printStackTrace();
         }
         System.out.println("Новый автомобиль доступен в продаже");
-        notify();
+        notifyAll();
     }
 }

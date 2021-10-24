@@ -1,9 +1,9 @@
-package hw1;
+package hw2;
 
-public class Homework1 {
+public class Homework2 {
 
     private final static int PRODUCTION_TIME = 3000;
-    static public final AutoShop queue = new AutoShop();
+    static public final AdvancedAutoShop queue = new AdvancedAutoShop();
 
     public static void main(String[] args) {
 
