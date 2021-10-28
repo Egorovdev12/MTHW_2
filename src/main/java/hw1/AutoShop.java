@@ -2,7 +2,7 @@ package hw1;
 
 import java.util.ArrayList;
 
-public class AutoShop {
+class AutoShop {
 
     private ArrayList<Car> autoList = new ArrayList<>();
     private final int SLEEP_TIME = 1000;

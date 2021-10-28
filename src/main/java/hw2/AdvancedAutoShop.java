@@ -5,11 +5,11 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class AdvancedAutoShop {
+class AdvancedAutoShop {
 
     private ArrayList<Car> autoList = new ArrayList<>();
     private final int SLEEP_TIME = 1000;
-    private Lock locker = new ReentrantLock();
+    private Lock locker = new ReentrantLock(true);
     private Condition generalCondition = locker.newCondition();
 
     private class Car {
